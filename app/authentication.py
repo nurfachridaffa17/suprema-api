@@ -12,7 +12,7 @@ class LoginSuprema:
             "bs-session-id": self.bs_session_id
         }
         
-        file_path = os.path.join(app.config['BASE_DIR'], 'session.json')
+        file_path = os.path.join(app.config['SESSION_DIR'], 'session.json')
         with open(file_path, 'w') as outfile:
             json.dump(data, outfile)
     
