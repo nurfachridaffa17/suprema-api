@@ -7,10 +7,11 @@ from genericpath import exists
 
 @app.route('/api/v1/all/door', methods=['GET'])
 def getAllDoor():
-    file_path = app.config['SESSION_DIR'] + '/session.json'
+    file_path = app.config['SESSION_DIR'] + 'session.json'
 
     if file_path is not exists:
-        authentication.login()
+        getData = authentication.LoginSuprema()
+        getData.login_api()
     
     with open(file_path, 'r') as f:
         data = json.load(f)
@@ -22,7 +23,7 @@ def getAllDoor():
     }
 
     try:
-        data = requests.get(url, headers=headers)
+        data = requests.get(url, headers=headers, verify=False)
         if data.status_code == 200:
             data = data.json()
             if data['Response']['message'] != 'success' and data['Response']['code'] != '0':

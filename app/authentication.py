@@ -16,7 +16,7 @@ class LoginSuprema:
         with open(file_path, 'w') as outfile:
             json.dump(data, outfile)
     
-    def login(self):
+    def login_api(self):
         url = app.config['SUPREMA_URL'] + '/api/login'
 
         payload = json.dumps({
