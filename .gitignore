@@ -3,3 +3,4 @@ config.py
 *.pyc
 docker-compose.yml
 Dockerfile
+app/static/*
