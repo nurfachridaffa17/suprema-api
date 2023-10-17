@@ -2,38 +2,20 @@ from flask import jsonify, request
 import json
 import requests
 from . import app
-from . import authentication
-from genericpath import exists
+from .user import check_image, create_user, get_next_id
 
-@app.route('/api/v1/all/door', methods=['GET'])
-def getAllDoor():
-    file_path = app.config['SESSION_DIR'] + 'session.json'
+@app.route('/api/v1/check/image', methods=['PUT'])
+def check_image_user():
+    return check_image()
 
-    if file_path is not exists:
-        getData = authentication.LoginSuprema()
-        getData.login_api()
-    
-    with open(file_path, 'r') as f:
-        data = json.load(f)
-        session_id = data['bs-session-id']
+@app.route('/api/v1/get/next_id', methods=['GET'])
+def get_id():
+    return get_next_id()
 
-    url = app.config['SUPREMA_URL'] + '/api/doors?limit=0&order_by=id:true'
-    headers = {
-        'bs-session-id' : session_id
-    }
+@app.route('/api/v1/create/users', methods=['POST'])
+def create_users():
+    return create_user()
 
-    try:
-        data = requests.get(url, headers=headers, verify=False)
-        if data.status_code == 200:
-            data = data.json()
-            if data['Response']['message'] != 'success' and data['Response']['code'] != '0':
-                return jsonify({'error': 'failed to get all door', 'data' : data}), 500
-            else:
-                return jsonify({'message': 'success', 'data' : data }), 200
-        else:
-            return jsonify({'error': 'failed to get all door', 'data' : data}), 500
-    except Exception as e:
-        return jsonify({'error': 'failed to get all door', 'data' : str(e)}), 500
 
             
         
