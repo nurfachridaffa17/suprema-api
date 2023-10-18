@@ -46,12 +46,12 @@ def check_image():
         data = requests.put(url, headers=headers, data=payload, verify=False)
         if data.status_code == 200:
             data = data.json()
-            if data['Response']['message'] != 'success' and data['Response']['code'] != '0':
+            if data['Response']['code'] != '0':
                 return jsonify({'error': 'error image', 'data' : data}), 410
             else:
                 return jsonify({'message': 'success', 'data' : data }), 200
         else:
-            return jsonify({'message' : 'please check your picture'}), 500
+            return jsonify({'message' : data.json()}), 500
     except Exception as e:
         return jsonify({'error': 'failed to check image', 'data' : str(e)}), 500
 
@@ -154,14 +154,14 @@ def create_user():
                 if response_visualface.status_code == 200:
                     data_photo = response_visualface.json()
                     if data_photo["Response"]["code"] == "0":
-                        return jsonify({"Successfully Create User"}), 200
+                        return jsonify({"message" : "Successfully Create User", "data photo" : data_photo, "data user" : data_user}), 200
                     else:
                         return jsonify(data_photo), 400
                 else:
-                    return response_visualface.json()
+                    return jsonify({'message' : response_visualface.json()}), 400
             else:
                 return jsonify(data_user), 400
         else:
-            return response_user.json()
+            return jsonify(response_user.json()), 500
     except requests.exceptions.RequestException as e:
         return jsonify({"error": "Failed to create user", "details": str(e)})
