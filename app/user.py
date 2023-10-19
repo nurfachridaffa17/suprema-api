@@ -143,7 +143,13 @@ def create_user():
                 "id": 1
             },
             "access_groups": {
-                "id": ["8","7","16"]
+                "id": 8
+            },
+            "access_groups": {
+                "id": 7
+            },
+            "access_groups": {
+                "id": 16
             },
             "disabled": "false",
             "start_datetime": "2023-01-01T00:00:00.00Z",
@@ -160,7 +166,13 @@ def create_user():
                 "id": int(group_id)
             },
             "access_groups": {
-                "id": ["8","7","16"]
+                "id": 8
+            },
+            "access_groups": {
+                "id": 7
+            },
+            "access_groups": {
+                "id": 16
             },
             "disabled": "false",
             "start_datetime": "2023-01-01T00:00:00.00Z",
