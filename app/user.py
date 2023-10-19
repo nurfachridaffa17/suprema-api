@@ -224,6 +224,94 @@ def update_visitor():
         return jsonify({"error": "Failed to update visitor", "details": str(e)})
 
 
+def update_employee():
+    id = request.form.get('id')
+    name = request.form.get('name')
+    email = request.form.get('email')
+    phone = request.form.get('phone')
+    group_id = app.config["USER_GROUP"]
+    first_image = request.form.get('first_image')
+    second_image = request.form.get('second_image')
 
+    session = check_session_id()
 
+    url = app.config['SUPREMA_URL'] + '/api/users/' + id
 
+    headers = {
+        'Content-Type': 'application/json',
+        'bs-session-id': session
+    }
+
+    if first_image and second_image:
+        payload = json.dumps({
+            "User": {
+                "name": name,
+                "phone" : str(phone),
+                "email": email,
+                "user_group_id": {
+                    "id": int(group_id)
+                },
+                "disabled": False,
+                "start_datetime": "2001-01-02T00:00:00.00Z",
+                "expiry_datetime": "2030-12-31T23:59:00.00Z",
+                "credentials": {
+                        "visualFaces": [
+                            {
+                                "template_ex_picture": first_image
+                            },
+                            {
+                                "template_ex_picture": second_image
+                            }
+                        ]
+                    }
+                }
+        })
+    elif first_image == True and second_image != True:
+        payload = json.dumps({
+            "User": {
+                "name": name,
+                "phone" : str(phone),
+                "email": email,
+                "user_group_id": {
+                    "id": int(group_id)
+                },
+                "disabled": "false",
+                "start_datetime": "2023-01-01T00:00:00.00Z",
+                "expiry_datetime": "2030-12-31T23:59:00.00Z",
+                "credentials": {
+                        "visualFaces": [
+                            {
+                                "template_ex_picture": first_image
+                            }
+                        ]
+                    }
+                }
+        })
+    elif first_image and second_image != True:
+        payload = json.dumps({
+        "User": {
+            "name": name,
+            "email": email,
+            "phone" : str(phone),
+            "user_group_id": {
+                "id": int(group_id)
+            },
+            "disabled": "false",
+            "start_datetime": "2023-01-01T00:00:00.00Z",
+            "expiry_datetime": "2030-12-31T23:59:00.00Z"
+        }
+        })
+    
+    try:
+        response = requests.request("PUT", url, headers=headers, data=payload, verify=False)
+        if response.status_code == 200:
+            data_user = response.json()
+            if data_user["Response"]["code"] == "0":
+                return jsonify({"message" : "Successfully Update Visitor", "data user" : data_user}), 200
+            else:
+                return jsonify(data_user), 400
+        else:
+            return jsonify({'message' : response.json()}), 500
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": "Failed to update visitor", "details": str(e)})
+    
