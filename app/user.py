@@ -76,6 +76,7 @@ def get_next_id():
     
 
 def create_user():
+    id = request.form.get('id')
     name = request.form.get('name')
     email = request.form.get('email')
     first_image = request.form.get('first_image')
@@ -90,14 +91,14 @@ def create_user():
     # base64_first_image = convert_image_base64(data_first_image)
     # base64_second_image = convert_image_base64(data_second_image)
     
-    next_id = get_next_id()
-    id_user = next_id
+    # next_id = get_next_id()
+    # id_user = next_id
 
     session = check_session_id()
     usertype = request.form.get('type')
 
     url = app.config['SUPREMA_URL'] + '/api/users'
-    url_visualface = app.config['SUPREMA_URL'] + '/api/users/' + id_user
+    url_visualface = app.config['SUPREMA_URL'] + '/api/users/' + id
 
     headers = {
         'Content-Type': 'application/json',
@@ -136,7 +137,7 @@ def create_user():
         payload = json.dumps({
         "User": {
             "name": name,
-            "user_id": id_user,
+            "user_id": id,
             "email": email,
             "user_group_id": {
                 "id": 1
@@ -150,7 +151,7 @@ def create_user():
         payload = json.dumps({
         "User": {
             "name": name,
-            "user_id": id_user,
+            "user_id": id,
             "email": email,
             "user_group_id": {
                 "id": int(group_id)
