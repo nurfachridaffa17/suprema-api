@@ -5,7 +5,7 @@ import requests
 from . import authentication
 from genericpath import exists
 import base64
-import datetime
+from datetime import datetime
 
 def check_session_id():
     file_path = app.config['SESSION_DIR'] + 'session.json'
@@ -80,6 +80,7 @@ def create_user():
     email = request.form.get('email')
     first_image = request.form.get('first_image')
     second_image = request.form.get('second_image')
+    group_id = app.config["USER_GROUP"]
     # first_image = request.files['first_image']
     # second_image = request.files['second_image']
 
@@ -105,20 +106,33 @@ def create_user():
         'bs-session-id': session
     }
 
-    payload_visualface = json.dumps({
-        "User": {
-            "credentials": {
-                "visualFaces": [
-                    {
-                        "template_ex_picture": first_image
-                    },
-                    {
-                        "template_ex_picture": second_image
-                    }
-                ]
+    if second_image:
+        payload_visualface = json.dumps({
+            "User": {
+                "credentials": {
+                    "visualFaces": [
+                        {
+                            "template_ex_picture": first_image
+                        },
+                        {
+                            "template_ex_picture": second_image
+                        }
+                    ]
+                }
             }
-        }
-    })
+        })
+    else:
+        payload_visualface = json.dumps({
+            "User": {
+                "credentials": {
+                    "visualFaces": [
+                        {
+                            "template_ex_picture": first_image
+                        }
+                    ]
+                }
+            }
+        })
 
     if usertype == "employee":
         payload = json.dumps({
@@ -130,7 +144,7 @@ def create_user():
                 "id": 1
             },
             "disabled": "false",
-            "start_datetime": "2001-01-01T00:00:00.00Z",
+            "start_datetime": "2023-01-01T00:00:00.00Z",
             "expiry_datetime": "2030-12-31T23:59:00.00Z"
         }
         })
@@ -141,11 +155,11 @@ def create_user():
             "user_id": id_user,
             "email": email,
             "user_group_id": {
-                "id": 1025
+                "id": int(group_id)
             },
             "disabled": "false",
-            "start_datetime": f"{now}T00:00:00.00Z",
-            "expiry_datetime": f"{now}T23:59:00.00Z"
+            "start_datetime": "2023-01-01T00:00:00.00Z",
+            "expiry_datetime": "2023-01-01T23:59:00.00Z"
         }
         })
     try:
@@ -168,3 +182,50 @@ def create_user():
             return jsonify(response_user.json()), 500
     except requests.exceptions.RequestException as e:
         return jsonify({"error": "Failed to create user", "details": str(e)})
+
+def update_visitor():
+    id = request.form.get('id')
+    starttime = request.form.get('starttime')
+    endtime = request.form.get('endtime')
+
+    date_time_start = datetime.strptime(starttime, '%Y-%m-%d %H:%M')
+    date_start = date_time_start.strftime('%Y-%m-%d')
+    timestart = date_time_start.strftime('%H:%M')
+
+    date_time_end = datetime.strptime(endtime, '%Y-%m-%d %H:%M')
+    date_end = date_time_end.strftime('%Y-%m-%d')
+    timeend = date_time_end.strftime('%H:%M')
+
+    session = check_session_id()
+
+    headers = {
+        'Content-Type': 'application/json',
+        'bs-session-id': session
+    }
+
+    payload = json.dumps({
+        "User": {
+            "start_datetime": f"{date_start}T{timestart}:00.00Z",
+            "expiry_datetime": f"{date_end}T{timeend}:00.00Z"
+        }
+    })
+
+    url = app.config['SUPREMA_URL'] + '/api/users/' + id
+
+    try:
+        response = requests.request("PUT", url, headers=headers, data=payload, verify=False)
+        if response.status_code == 200:
+            data_user = response.json()
+            if data_user["Response"]["code"] == "0":
+                return jsonify({"message" : "Successfully Update Visitor", "data user" : data_user}), 200
+            else:
+                return jsonify(data_user), 400
+        else:
+            return jsonify({'message' : response.json()}), 500
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": "Failed to update visitor", "details": str(e)})
+
+
+
+
+
