@@ -145,12 +145,6 @@ def create_user():
             "access_groups": {
                 "id": 8
             },
-            "access_groups": {
-                "id": 7
-            },
-            "access_groups": {
-                "id": 16
-            },
             "disabled": "false",
             "start_datetime": "2023-01-01T00:00:00.00Z",
             "expiry_datetime": "2030-12-31T23:59:00.00Z"
@@ -167,12 +161,6 @@ def create_user():
             },
             "access_groups": {
                 "id": 8
-            },
-            "access_groups": {
-                "id": 7
-            },
-            "access_groups": {
-                "id": 16
             },
             "disabled": "false",
             "start_datetime": "2023-01-01T00:00:00.00Z",
