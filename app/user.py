@@ -142,6 +142,9 @@ def create_user():
             "user_group_id": {
                 "id": 1
             },
+            "access_groups": {
+                "id": ["8","7","16"]
+            },
             "disabled": "false",
             "start_datetime": "2023-01-01T00:00:00.00Z",
             "expiry_datetime": "2030-12-31T23:59:00.00Z"
@@ -155,6 +158,9 @@ def create_user():
             "email": email,
             "user_group_id": {
                 "id": int(group_id)
+            },
+            "access_groups": {
+                "id": ["8","7","16"]
             },
             "disabled": "false",
             "start_datetime": "2023-01-01T00:00:00.00Z",
