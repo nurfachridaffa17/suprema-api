@@ -4,3 +4,4 @@ config.py
 docker-compose.yml
 Dockerfile
 app/static/*
+app/ssl/*
