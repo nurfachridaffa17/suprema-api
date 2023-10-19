@@ -99,8 +99,6 @@ def create_user():
     url = app.config['SUPREMA_URL'] + '/api/users'
     url_visualface = app.config['SUPREMA_URL'] + '/api/users/' + id_user
 
-    now = datetime.date.today().strftime('%Y-%m-%d')
-
     headers = {
         'Content-Type': 'application/json',
         'bs-session-id': session
