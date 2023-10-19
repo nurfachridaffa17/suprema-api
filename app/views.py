@@ -15,13 +15,3 @@ def get_id():
 @app.route('/api/v1/create/users', methods=['POST'])
 def create_users():
     return create_user()
-
-
-            
-        
-
-
-
-
-
-

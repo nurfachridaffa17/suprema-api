@@ -5,6 +5,7 @@ import requests
 from . import authentication
 from genericpath import exists
 import base64
+import datetime
 
 def check_session_id():
     file_path = app.config['SESSION_DIR'] + 'session.json'
@@ -72,7 +73,7 @@ def get_next_id():
         return user_id
     except requests.exceptions.RequestException as e:
         return jsonify({"error": "Failed to create user", "details": str(e)})
-
+    
 
 def create_user():
     name = request.form.get('name')
@@ -96,6 +97,8 @@ def create_user():
 
     url = app.config['SUPREMA_URL'] + '/api/users'
     url_visualface = app.config['SUPREMA_URL'] + '/api/users/' + id_user
+
+    now = datetime.date.today().strftime('%Y-%m-%d')
 
     headers = {
         'Content-Type': 'application/json',
@@ -124,7 +127,7 @@ def create_user():
             "user_id": id_user,
             "email": email,
             "user_group_id": {
-            "id": 1
+                "id": 1
             },
             "disabled": "false",
             "start_datetime": "2001-01-01T00:00:00.00Z",
@@ -138,11 +141,11 @@ def create_user():
             "user_id": id_user,
             "email": email,
             "user_group_id": {
-            "id": 1
+                "id": 1025
             },
             "disabled": "false",
-            "start_datetime": "2001-01-01T00:00:00.00Z",
-            "expiry_datetime": "2030-12-31T23:59:00.00Z"
+            "start_datetime": f"{now}T00:00:00.00Z",
+            "expiry_datetime": f"{now}T23:59:00.00Z"
         }
         })
     try:
