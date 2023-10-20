@@ -81,7 +81,7 @@ def create_user():
     email = request.form.get('email')
     first_image = request.form.get('first_image')
     second_image = request.form.get('second_image')
-    # department_id = request.form.get('department_id')
+    department_id = request.form.get('department_id')
 
     session = check_session_id()
     usertype = request.form.get('type')
@@ -121,8 +121,7 @@ def create_user():
             }
         })
 
-    if usertype == "employee":
-        # if department_id == "1":
+    if usertype == "employee" and department_id == 1:
         payload = json.dumps({
         "User": {
             "name": name,
@@ -132,78 +131,167 @@ def create_user():
                 "id": 1062
             },
             "access_groups": {
-                "id": 1,
-                "id": 3,
-                "id": 4,
-                "id": 7,
-                "id": 8
+                "id": 10
             },
             "disabled": "false",
             "start_datetime": "2023-01-01T00:00:00.00Z",
             "expiry_datetime": "2030-12-31T23:59:00.00Z"
         }
         })
-        # elif department_id == 2:
-        #     payload = json.dumps({
-        #     "User": {
-        #         "name": name,
-        #         "user_id": id,
-        #         "email": email,
-        #         "user_group_id": {
-        #             "id": 1016
-        #         },
-        #         "access_groups": {
-        #             "id": 3,
-        #             "id": 4,
-        #             "id": 7,
-        #             "id": 8
-        #         },
-        #         "disabled": "false",
-        #         "start_datetime": "2023-01-01T00:00:00.00Z",
-        #         "expiry_datetime": "2030-12-31T23:59:00.00Z"
-        #     }
-        #     })
-        # elif department_id == 3:
-        #     payload = json.dumps({
-        #     "User": {
-        #         "name": name,
-        #         "user_id": id,
-        #         "email": email,
-        #         "user_group_id": {
-        #             "id": 1015
-        #         },
-        #         "access_groups": {
-        #             "id": 1,
-        #             "id": 3,
-        #             "id": 4,
-        #             "id": 7,
-        #             "id": 8
-        #         },
-        #         "disabled": "false",
-        #         "start_datetime": "2023-01-01T00:00:00.00Z",
-        #         "expiry_datetime": "2030-12-31T23:59:00.00Z"
-        #     }
-        #     })
-        # elif department_id == 6:
-        #     payload = json.dumps({
-        #     "User": {
-        #         "name": name,
-        #         "user_id": id,
-        #         "email": email,
-        #         "user_group_id": {
-        #             "id": 1069
-        #         },
-        #         "access_groups": {
-        #             "id": 4,
-        #             "id": 7,
-        #             "id": 8
-        #         },
-        #         "disabled": "false",
-        #         "start_datetime": "2023-01-01T00:00:00.00Z",
-        #         "expiry_datetime": "2030-12-31T23:59:00.00Z"
-        #     }
-        #     })
-    elif usertype == "visitor":
+    elif usertype == "employee" and department_id == 2:
+        payload = json.dumps({
+        "User": {
+            "name": name,
+            "user_id": id,
+            "email": email,
+            "user_group_id": {
+                "id": 1016
+            },
+            "access_groups": {
+                "id": 3
+            },
+            "disabled": "false",
+            "start_datetime": "2023-01-01T00:00:00.00Z",
+            "expiry_datetime": "2030-12-31T23:59:00.00Z"
+        }
+        })
+    elif usertype == "employee" and department_id == 3:
+        payload = json.dumps({
+        "User": {
+            "name": name,
+            "user_id": id,
+            "email": email,
+            "user_group_id": {
+                "id": 1015
+            },
+            "access_groups": {
+                "id": 15
+            },
+            "disabled": "false",
+            "start_datetime": "2023-01-01T00:00:00.00Z",
+            "expiry_datetime": "2030-12-31T23:59:00.00Z"
+        }
+        })
+    elif usertype == "employee" and department_id == 6:
+        payload = json.dumps({
+        "User": {
+            "name": name,
+            "user_id": id,
+            "email": email,
+            "user_group_id": {
+                "id": 1069
+            },
+            "access_groups": {
+                "id": 15,
+            },
+            "disabled": "false",
+            "start_datetime": "2023-01-01T00:00:00.00Z",
+            "expiry_datetime": "2030-12-31T23:59:00.00Z"
+        }
+        })
+    elif usertype == "employee" and department_id == 7:
+        payload = json.dumps({
+        "User": {
+            "name": name,
+            "user_id": id,
+            "email": email,
+            "user_group_id": {
+                "id": 1071
+            },
+            "access_groups": {
+                "id": 4,
+            },
+            "disabled": "false",
+            "start_datetime": "2023-01-01T00:00:00.00Z",
+            "expiry_datetime": "2030-12-31T23:59:00.00Z"
+        }
+        })
+    elif usertype == "employee" and department_id == 8:
+        payload = json.dumps({
+        "User": {
+            "name": name,
+            "user_id": id,
+            "email": email,
+            "user_group_id": {
+                "id": 1075
+            },
+            "access_groups": {
+                "id": 4,
+            },
+            "disabled": "false",
+            "start_datetime": "2023-01-01T00:00:00.00Z",
+            "expiry_datetime": "2030-12-31T23:59:00.00Z"
+        }
+        })
+    elif usertype == "employee" and department_id == 9:
+        payload = json.dumps({
+        "User": {
+            "name": name,
+            "user_id": id,
+            "email": email,
+            "user_group_id": {
+                "id": 1069
+            },
+            "access_groups": {
+                "id": 4,
+            },
+            "disabled": "false",
+            "start_datetime": "2023-01-01T00:00:00.00Z",
+            "expiry_datetime": "2030-12-31T23:59:00.00Z"
+        }
+        })
+    elif usertype == "employee" and department_id == 10:
+        payload = json.dumps({
+        "User": {
+            "name": name,
+            "user_id": id,
+            "email": email,
+            "user_group_id": {
+                "id": 1076
+            },
+            "access_groups": {
+                "id": 4,
+            },
+            "disabled": "false",
+            "start_datetime": "2023-01-01T00:00:00.00Z",
+            "expiry_datetime": "2030-12-31T23:59:00.00Z"
+        }
+        })
+    elif usertype == "employee" and department_id == 11:
+        payload = json.dumps({
+        "User": {
+            "name": name,
+            "user_id": id,
+            "email": email,
+            "user_group_id": {
+                "id": 1018
+            },
+            "access_groups": {
+                "id": 4,
+            },
+            "disabled": "false",
+            "start_datetime": "2023-01-01T00:00:00.00Z",
+            "expiry_datetime": "2030-12-31T23:59:00.00Z"
+        }
+        })
+    elif usertype == "employee" and department_id == 12:
+        payload = json.dumps({
+        "User": {
+            "name": name,
+            "user_id": id,
+            "email": email,
+            "user_group_id": {
+                "id": 1074
+            },
+            "access_groups": {
+                "id": 4,
+            },
+            "disabled": "false",
+            "start_datetime": "2023-01-01T00:00:00.00Z",
+            "expiry_datetime": "2030-12-31T23:59:00.00Z"
+        }
+        })
+    else :
         payload = json.dumps({
         "User": {
             "name": name,
@@ -213,8 +301,7 @@ def create_user():
                 "id": 1025
             },
             "access_groups": {
-                "id" : 8,
-                "id" : 7
+                "id": 17,
             },
             "disabled": "false",
             "start_datetime": "2023-01-01T00:00:00.00Z",
@@ -290,7 +377,7 @@ def update_employee():
     name = request.form.get('name')
     email = request.form.get('email')
     phone = request.form.get('phone')
-    group_id = app.config["USER_GROUP"]
+    department_id = request.form.get('department_id')
     first_image = request.form.get('first_image')
     second_image = request.form.get('second_image')
 
@@ -310,7 +397,7 @@ def update_employee():
                 "phone" : str(phone),
                 "email": email,
                 "user_group_id": {
-                    "id": int(group_id)
+                    "id": int(department_id)
                 },
                 "disabled": False,
                 "start_datetime": "2001-01-02T00:00:00.00Z",
@@ -334,7 +421,7 @@ def update_employee():
                 "phone" : str(phone),
                 "email": email,
                 "user_group_id": {
-                    "id": int(group_id)
+                    "id": int(department_id)
                 },
                 "disabled": "false",
                 "start_datetime": "2023-01-01T00:00:00.00Z",
@@ -355,7 +442,7 @@ def update_employee():
             "email": email,
             "phone" : str(phone),
             "user_group_id": {
-                "id": int(group_id)
+                "id": int(department_id)
             },
             "disabled": "false",
             "start_datetime": "2023-01-01T00:00:00.00Z",
