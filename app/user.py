@@ -82,17 +82,6 @@ def create_user():
     first_image = request.form.get('first_image')
     second_image = request.form.get('second_image')
     department_id = request.form.get('department_id')
-    # first_image = request.files['first_image']
-    # second_image = request.files['second_image']
-
-    # data_first_image = first_image.read()
-    # data_second_image = second_image.read()
-
-    # base64_first_image = convert_image_base64(data_first_image)
-    # base64_second_image = convert_image_base64(data_second_image)
-    
-    # next_id = get_next_id()
-    # id_user = next_id
 
     payload = None
 
@@ -254,7 +243,7 @@ def create_user():
             else:
                 return jsonify(data_user), 400
         else:
-            return jsonify(response_user.json()), 500
+            return jsonify(response_user.json(), payload), 500
     except requests.exceptions.RequestException as e:
         return jsonify({"error": "Failed to create user", "details": str(e)})
 
