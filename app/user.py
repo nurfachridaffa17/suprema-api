@@ -121,7 +121,7 @@ def create_user():
             }
         })
 
-    if usertype == "employee" and department_id == 1:
+    if usertype == "employee" and department_id == "1":
         payload = json.dumps({
         "User": {
             "name": name,
@@ -138,7 +138,7 @@ def create_user():
             "expiry_datetime": "2030-12-31T23:59:00.00Z"
         }
         })
-    elif usertype == "employee" and department_id == 2:
+    elif usertype == "employee" and department_id == "2":
         payload = json.dumps({
         "User": {
             "name": name,
@@ -155,7 +155,7 @@ def create_user():
             "expiry_datetime": "2030-12-31T23:59:00.00Z"
         }
         })
-    elif usertype == "employee" and department_id == 3:
+    elif usertype == "employee" and department_id == "3":
         payload = json.dumps({
         "User": {
             "name": name,
@@ -172,7 +172,7 @@ def create_user():
             "expiry_datetime": "2030-12-31T23:59:00.00Z"
         }
         })
-    elif usertype == "employee" and department_id == 6:
+    elif usertype == "employee" and department_id == "6":
         payload = json.dumps({
         "User": {
             "name": name,
@@ -189,7 +189,7 @@ def create_user():
             "expiry_datetime": "2030-12-31T23:59:00.00Z"
         }
         })
-    elif usertype == "employee" and department_id == 7:
+    elif usertype == "employee" and department_id == "7":
         payload = json.dumps({
         "User": {
             "name": name,
@@ -206,7 +206,7 @@ def create_user():
             "expiry_datetime": "2030-12-31T23:59:00.00Z"
         }
         })
-    elif usertype == "employee" and department_id == 8:
+    elif usertype == "employee" and department_id == "8":
         payload = json.dumps({
         "User": {
             "name": name,
@@ -223,7 +223,7 @@ def create_user():
             "expiry_datetime": "2030-12-31T23:59:00.00Z"
         }
         })
-    elif usertype == "employee" and department_id == 9:
+    elif usertype == "employee" and department_id == "9":
         payload = json.dumps({
         "User": {
             "name": name,
@@ -240,7 +240,7 @@ def create_user():
             "expiry_datetime": "2030-12-31T23:59:00.00Z"
         }
         })
-    elif usertype == "employee" and department_id == 10:
+    elif usertype == "employee" and department_id == "10":
         payload = json.dumps({
         "User": {
             "name": name,
@@ -257,7 +257,7 @@ def create_user():
             "expiry_datetime": "2030-12-31T23:59:00.00Z"
         }
         })
-    elif usertype == "employee" and department_id == 11:
+    elif usertype == "employee" and department_id == "11":
         payload = json.dumps({
         "User": {
             "name": name,
@@ -274,7 +274,7 @@ def create_user():
             "expiry_datetime": "2030-12-31T23:59:00.00Z"
         }
         })
-    elif usertype == "employee" and department_id == 12:
+    elif usertype == "employee" and department_id == "12":
         payload = json.dumps({
         "User": {
             "name": name,
