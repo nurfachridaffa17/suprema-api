@@ -12,7 +12,7 @@ def check_image_user():
 def get_id():
     return get_next_id()
 
-@app.route('/api/v1/create/users', methods=['POST'])
+@app.route('/api/v1/create/users', methods=['POST', 'PUT'])
 def create_users():
     return create_user()
 

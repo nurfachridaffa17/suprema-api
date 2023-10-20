@@ -93,7 +93,7 @@ def create_user():
         'Content-Type': 'application/json',
         'bs-session-id': session
     }
-    if second_image:
+    if first_image and second_image:
         payload_visualface = json.dumps({
             "User": {
                 "credentials": {
@@ -108,7 +108,8 @@ def create_user():
                 }
             }
         })
-    else:
+        send_visualface_request = True
+    elif first_image or second_image:
         payload_visualface = json.dumps({
             "User": {
                 "credentials": {
@@ -120,6 +121,10 @@ def create_user():
                 }
             }
         })
+        send_visualface_request = True
+    else:
+        payload_visualface = None
+        send_visualface_request = False
 
     if usertype == "employee" and department_id == "1":
         payload = json.dumps({
@@ -312,18 +317,20 @@ def create_user():
         response_user = requests.request("POST", url, headers=headers, data=payload, verify=False)
         if response_user.status_code == 200:
             data_user = response_user.json()
-            if data_user["Response"]["code"] == "0":
+            if data_user["Response"]["code"] == "0" and send_visualface_request:
                 response_visualface = requests.request("PUT", url=url_visualface, headers=headers, data=payload_visualface, verify=False)
                 if response_visualface.status_code == 200:
                     data_photo = response_visualface.json()
                     if data_photo["Response"]["code"] == "0":
-                        return jsonify({"message" : "Successfully Create User", "data photo" : data_photo, "data user" : data_user}), 200
+                        return jsonify({"message": "Successfully Create User", "data photo": data_photo, "data user": data_user}), 200
                     else:
                         return jsonify(data_photo), 400
                 else:
-                    return jsonify({'message' : response_visualface.json()}), 400
+                    return jsonify({'message': response_visualface.json()}), 400
+            elif data_user["Response"]["code"] == "0" and send_visualface_request != True:
+                return jsonify({"message": "Successfully Create User", "data user" : data_user}), 200
             else:
-                return jsonify(data_user), 400
+                return jsonify(data_user)
         else:
             return jsonify(response_user.json(), payload), 500
     except requests.exceptions.RequestException as e:
